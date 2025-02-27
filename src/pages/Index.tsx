@@ -26,6 +26,7 @@ const defaultParams: InvestmentParams = {
   vacancyRate: 5,
   taxRate: 30,
   taxSystem: "real",
+  annualAppreciation: 1.5, // Taux de valorisation annuelle du bien
 };
 
 const Index = () => {

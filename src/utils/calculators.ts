@@ -25,6 +25,8 @@ export interface InvestmentParams {
   taxRate: number;
   // Mode d'imposition (réel/forfait)
   taxSystem: 'real' | 'micro';
+  // Taux de valorisation annuelle du bien (%)
+  annualAppreciation?: number;
 }
 
 // Types for investment results
@@ -55,6 +57,14 @@ export interface InvestmentResults {
   twentyYearTotalExpenses: number;
   // Revenu net avant impôt sur 20 ans
   twentyYearNetIncome: number;
+  // Valeur estimée du bien après 20 ans
+  propertyValueAfter20Years: number;
+  // Capital restant dû après 20 ans
+  remainingLoanAfter20Years: number;
+  // Valorisation nette (valeur du bien - capital restant dû)
+  netEquityAfter20Years: number;
+  // Rendement patrimonial total (valorisation + revenus locatifs) / investissement initial
+  totalPatrimonialReturn: number;
 }
 
 // Calcul de l'amortissement du prêt (tableau d'amortissement simplifié)
@@ -95,12 +105,16 @@ export const calculateLoanAmortization = (
   
   return {
     monthlyPayment,
-    amortizationSchedule
+    amortizationSchedule,
+    remainingBalance: Math.max(0, remainingBalance)
   };
 };
 
 // Fonction principale pour calculer tous les résultats de l'investissement
 export const calculateInvestmentResults = (params: InvestmentParams): InvestmentResults => {
+  // Valeur par défaut pour l'appréciation annuelle (1.5% par an)
+  const annualAppreciation = params.annualAppreciation || 1.5;
+  
   // Calcul des frais de notaire
   const actualNotaryFees = (params.purchasePrice * params.notaryFees) / 100;
   
@@ -110,8 +124,8 @@ export const calculateInvestmentResults = (params: InvestmentParams): Investment
   // Calcul du montant du prêt
   const loanAmount = totalInvestment - params.downPayment;
   
-  // Calcul des mensualités du prêt
-  const { monthlyPayment } = calculateLoanAmortization(
+  // Calcul des mensualités du prêt et du capital restant après 20 ans
+  const { monthlyPayment, remainingBalance } = calculateLoanAmortization(
     loanAmount,
     params.interestRate,
     params.loanTerm
@@ -136,11 +150,23 @@ export const calculateInvestmentResults = (params: InvestmentParams): Investment
   // Calcul de l'effort d'épargne
   const monthlySavingsEffort = monthlyCashFlow < 0 ? Math.abs(monthlyCashFlow) : 0;
   
-  // Calcul sur 20 ans (simplifié, sans tenir compte de l'inflation ou de l'évolution des loyers)
+  // Calcul de la valeur du bien après 20 ans (formule de capitalisation avec intérêts composés)
+  const propertyValueAfter20Years = params.purchasePrice * Math.pow(1 + annualAppreciation / 100, 20);
+  
+  // Calcul du capital restant dû après 20 ans
+  const remainingLoanAfter20Years = params.loanTerm > 20 ? remainingBalance : 0;
+  
+  // Calcul de la valorisation nette (valeur du bien - capital restant dû)
+  const netEquityAfter20Years = propertyValueAfter20Years - remainingLoanAfter20Years;
+  
+  // Calcul sur 20 ans (revenus locatifs)
   const twentyYearTotalRent = annualRent * 20;
   const twentyYearTotalExpenses = (annualExpenses * 20) + (monthlyPayment * 12 * Math.min(params.loanTerm, 20));
   const twentyYearNetIncome = twentyYearTotalRent - twentyYearTotalExpenses;
   const twentyYearReturn = (twentyYearNetIncome / totalInvestment) * 100;
+  
+  // Rendement patrimonial total (valorisation + revenus locatifs nets) / investissement initial
+  const totalPatrimonialReturn = ((netEquityAfter20Years - params.downPayment + twentyYearNetIncome) / params.downPayment) * 100;
   
   return {
     loanAmount,
@@ -155,7 +181,11 @@ export const calculateInvestmentResults = (params: InvestmentParams): Investment
     twentyYearReturn,
     twentyYearTotalRent,
     twentyYearTotalExpenses,
-    twentyYearNetIncome
+    twentyYearNetIncome,
+    propertyValueAfter20Years,
+    remainingLoanAfter20Years,
+    netEquityAfter20Years,
+    totalPatrimonialReturn
   };
 };
 

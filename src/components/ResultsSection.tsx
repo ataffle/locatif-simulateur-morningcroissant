@@ -58,6 +58,14 @@ const ResultsSection = ({ results }: ResultsSectionProps) => {
     return "Négatif";
   };
   
+  const getPatrimonialReturnLabel = (return_: number) => {
+    if (return_ >= 500) return "Exceptionnel";
+    if (return_ >= 300) return "Excellent";
+    if (return_ >= 200) return "Très bon";
+    if (return_ >= 100) return "Bon";
+    return "Moyen";
+  };
+  
   // Détermine les variantes des cartes en fonction des résultats
   const getYieldVariant = (yield_: number): ResultCardProps["variant"] => {
     if (yield_ >= 6) return "success";
@@ -70,6 +78,13 @@ const ResultsSection = ({ results }: ResultsSectionProps) => {
     if (cashFlow >= 300) return "success";
     if (cashFlow >= 100) return "default";
     if (cashFlow >= 0) return "caution";
+    return "danger";
+  };
+  
+  const getPatrimonialReturnVariant = (return_: number): ResultCardProps["variant"] => {
+    if (return_ >= 300) return "success";
+    if (return_ >= 100) return "default";
+    if (return_ >= 50) return "caution";
     return "danger";
   };
 
@@ -158,6 +173,34 @@ const ResultsSection = ({ results }: ResultsSectionProps) => {
                 <span className="font-medium">{formatPercent(results.twentyYearReturn)}</span>
               </div>
             </div>
+          </div>
+        </div>
+        
+        {/* Nouvelle section Patrimoine */}
+        <div className="mt-6">
+          <h4 className="text-md font-medium mb-4">Patrimoine après 20 ans</h4>
+          <div className={cn("grid gap-4", isMobile ? "grid-cols-1" : "grid-cols-2 xl:grid-cols-4")}>
+            <ResultCard
+              title="Valeur du bien"
+              value={formatCurrency(results.propertyValueAfter20Years)}
+            />
+            
+            <ResultCard
+              title="Capital restant dû"
+              value={formatCurrency(results.remainingLoanAfter20Years)}
+            />
+            
+            <ResultCard
+              title="Valorisation nette"
+              value={formatCurrency(results.netEquityAfter20Years)}
+            />
+            
+            <ResultCard
+              title="Rendement patrimonial"
+              value={formatPercent(results.totalPatrimonialReturn)}
+              label={getPatrimonialReturnLabel(results.totalPatrimonialReturn)}
+              variant={getPatrimonialReturnVariant(results.totalPatrimonialReturn)}
+            />
           </div>
         </div>
       </div>
