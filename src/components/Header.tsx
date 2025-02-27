@@ -13,7 +13,9 @@ const Header = ({ className }: HeaderProps) => {
       <div className="border-b border-gray-100 py-4">
         <div className="container mx-auto px-4 flex items-center">
           <div className="flex items-center">
-            <MorningCroissantLogo />
+            <a href="https://www.morningcroissant.fr" target="_blank" rel="noopener noreferrer">
+              <MorningCroissantLogo />
+            </a>
           </div>
         </div>
       </div>
