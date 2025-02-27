@@ -28,12 +28,12 @@ export default {
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))',
-					morningblue: '#095Ce0',
+					morningblue: '#095BE1',
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))',
-					morningorange: '#ff7f3b',
+					morningorange: '#ff813A',
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -66,8 +66,8 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				morningcroissant: {
-					blue: '#095Ce0',
-					orange: '#ff7f3b',
+					blue: '#095BE1',
+					orange: '#ff813A',
 				}
 			},
 			fontFamily: {

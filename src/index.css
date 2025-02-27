@@ -1,4 +1,5 @@
 
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -16,24 +17,24 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 10%;
 
-    --primary: 217 93% 46%;  /* #095Ce0 */
+    --primary: 218 93% 46%;  /* #095BE1 */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 19 100% 62%; /* #ff7f3b */
+    --secondary: 23 100% 61%; /* #ff813A */
     --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 94%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 217 93% 96%;
-    --accent-foreground: 217 93% 36%;
+    --accent: 218 93% 96%;
+    --accent-foreground: 218 93% 36%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 217 93% 76%;
+    --ring: 218 93% 76%;
 
     --radius: 0.5rem;
 
@@ -57,16 +58,16 @@
     --popover: 0 0% 10%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 217 93% 46%;
+    --primary: 218 93% 46%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 19 100% 62%;
+    --secondary: 23 100% 61%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 20%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 217 93% 26%;
+    --accent: 218 93% 26%;
     --accent-foreground: 0 0% 95%;
 
     --destructive: 0 62% 30%;
@@ -74,7 +75,7 @@
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 217 93% 36%;
+    --ring: 218 93% 36%;
   }
 }
 
@@ -146,3 +147,4 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
