@@ -11,12 +11,20 @@ const Header = ({ className }: HeaderProps) => {
     <header className={cn("", className)}>
       {/* Logo and nav bar */}
       <div className="border-b border-gray-100 py-4">
-        <div className="container mx-auto px-4 flex items-center">
+        <div className="container mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center">
             <a href="https://www.morningcroissant.fr" target="_blank" rel="noopener noreferrer">
               <MorningCroissantLogo />
             </a>
           </div>
+          <a 
+            href="https://www.morningcroissant.fr/publiez-votre-logement" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-full px-6 py-2.5 text-base font-medium text-white bg-primary hover:bg-primary/90 transition-colors"
+          >
+            Vous êtes propriétaire ?
+          </a>
         </div>
       </div>
       
