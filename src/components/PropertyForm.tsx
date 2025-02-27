@@ -362,6 +362,46 @@ const PropertyForm = ({ params, onChange }: PropertyFormProps) => {
             </div>
           </div>
         </div>
+        
+        <Separator />
+        
+        {/* Nouvelle section pour le taux d'appréciation annuelle */}
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <h3 className="text-lg font-semibold">Projection patrimoniale</h3>
+            <p className="text-sm text-muted-foreground">
+              Paramètres d'évolution de la valeur du bien
+            </p>
+          </div>
+          
+          {/* Taux d'appréciation annuelle */}
+          <div className="space-y-3">
+            <div className="flex justify-between">
+              <label htmlFor="annualAppreciation" className="input-label">
+                Taux d'appréciation annuelle du bien
+              </label>
+              <span className="text-sm font-medium">{formatPercent(params.annualAppreciation || 1.5)}</span>
+            </div>
+            <div className="space-y-2">
+              <Slider
+                id="annualAppreciation"
+                value={[params.annualAppreciation || 1.5]}
+                min={-2}
+                max={5}
+                step={0.1}
+                onValueChange={(value) => handleChange("annualAppreciation", value[0])}
+                className="py-1"
+              />
+              <div className="flex justify-between text-xs text-muted-foreground">
+                <span>-2 %</span>
+                <span>5 %</span>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              Estimation de l'évolution annuelle moyenne de la valeur du bien sur 20 ans.
+            </p>
+          </div>
+        </div>
       </div>
     </SlideTransition>
   );

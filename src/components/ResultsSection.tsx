@@ -1,10 +1,12 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { InvestmentResults, formatCurrency, formatPercent } from "@/utils/calculators";
 import SlideTransition from "./SlideTransition";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
+import { HelpCircle } from "lucide-react";
 
 interface ResultsSectionProps {
   results: InvestmentResults;
@@ -16,9 +18,10 @@ type ResultCardProps = {
   label?: string;
   variant?: "default" | "success" | "caution" | "danger";
   className?: string;
+  tooltip?: string;
 };
 
-const ResultCard = ({ title, value, label, variant = "default", className }: ResultCardProps) => {
+const ResultCard = ({ title, value, label, variant = "default", className, tooltip }: ResultCardProps) => {
   let badgeVariant = "bg-accent text-accent-foreground";
   
   if (variant === "success") {
@@ -32,7 +35,21 @@ const ResultCard = ({ title, value, label, variant = "default", className }: Res
   return (
     <div className={cn("p-4 rounded-lg border border-border", className)}>
       <div className="flex flex-col space-y-1">
-        <div className="text-sm text-muted-foreground">{title}</div>
+        <div className="flex items-center gap-1">
+          <div className="text-sm text-muted-foreground">{title}</div>
+          {tooltip && (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-80">
+                  <p className="text-sm">{tooltip}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+        </div>
         <div className="text-2xl font-semibold">{value}</div>
         {label && <Badge className={cn("chip mt-2 self-start", badgeVariant)}>{label}</Badge>}
       </div>
@@ -106,6 +123,7 @@ const ResultsSection = ({ results }: ResultsSectionProps) => {
             value={formatPercent(results.grossYield)}
             label={getRentabilityLabel(results.grossYield)}
             variant={getYieldVariant(results.grossYield)}
+            tooltip="Loyers annuels divisés par l'investissement total"
           />
           
           <ResultCard
@@ -113,6 +131,7 @@ const ResultsSection = ({ results }: ResultsSectionProps) => {
             value={formatPercent(results.netYield)}
             label={getRentabilityLabel(results.netYield)}
             variant={getYieldVariant(results.netYield)}
+            tooltip="Cash-flow annuel divisé par l'investissement total"
           />
           
           <ResultCard
@@ -120,6 +139,7 @@ const ResultsSection = ({ results }: ResultsSectionProps) => {
             value={formatCurrency(results.monthlyCashFlow)}
             label={getCashFlowLabel(results.monthlyCashFlow)}
             variant={getCashFlowVariant(results.monthlyCashFlow)}
+            tooltip="Loyers - charges - mensualité du crédit"
           />
           
           <ResultCard
@@ -127,6 +147,7 @@ const ResultsSection = ({ results }: ResultsSectionProps) => {
             value={formatCurrency(results.annualCashFlow)}
             label={getCashFlowLabel(results.monthlyCashFlow)}
             variant={getCashFlowVariant(results.monthlyCashFlow)}
+            tooltip="Cash-flow mensuel × 12"
           />
         </div>
         
@@ -176,23 +197,26 @@ const ResultsSection = ({ results }: ResultsSectionProps) => {
           </div>
         </div>
         
-        {/* Nouvelle section Patrimoine */}
+        {/* Section Patrimoine */}
         <div className="mt-6">
           <h4 className="text-md font-medium mb-4">Patrimoine après 20 ans</h4>
           <div className={cn("grid gap-4", isMobile ? "grid-cols-1" : "grid-cols-2 xl:grid-cols-4")}>
             <ResultCard
               title="Valeur du bien"
               value={formatCurrency(results.propertyValueAfter20Years)}
+              tooltip="Valeur future calculée avec le taux d'appréciation annuel sur 20 ans"
             />
             
             <ResultCard
               title="Capital restant dû"
               value={formatCurrency(results.remainingLoanAfter20Years)}
+              tooltip="Montant restant à rembourser sur le prêt après 20 ans"
             />
             
             <ResultCard
               title="Valorisation nette"
               value={formatCurrency(results.netEquityAfter20Years)}
+              tooltip="Valeur du bien moins le capital restant dû"
             />
             
             <ResultCard
@@ -200,6 +224,7 @@ const ResultsSection = ({ results }: ResultsSectionProps) => {
               value={formatPercent(results.totalPatrimonialReturn)}
               label={getPatrimonialReturnLabel(results.totalPatrimonialReturn)}
               variant={getPatrimonialReturnVariant(results.totalPatrimonialReturn)}
+              tooltip="((Valorisation nette - Apport initial + Revenus nets sur 20 ans) / Apport initial) × 100. Ce rendement représente la performance globale de votre investissement, incluant à la fois les revenus locatifs et la plus-value immobilière."
             />
           </div>
         </div>
