@@ -19,7 +19,7 @@ type ResultCardProps = {
 };
 
 const ResultCard = ({ title, value, label, variant = "default", className }: ResultCardProps) => {
-  let badgeVariant = "bg-secondary text-primary";
+  let badgeVariant = "bg-accent text-accent-foreground";
   
   if (variant === "success") {
     badgeVariant = "bg-green-100 text-green-800";

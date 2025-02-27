@@ -57,9 +57,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-16">
-      <div className="container mx-auto px-4 sm:px-6">
-        <Header />
-        
+      <Header />
+      <div className="container mx-auto px-4 sm:px-6 pt-6">
         <div className={cn("grid gap-6", isMobile ? "grid-cols-1" : "lg:grid-cols-2")}>
           <PropertyForm params={params} onChange={handleParamsChange} />
           <ResultsSection results={results} />

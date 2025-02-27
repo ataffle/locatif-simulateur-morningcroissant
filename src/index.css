@@ -16,24 +16,24 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 10%;
 
-    --primary: 240 5% 15%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 217 93% 46%;  /* #095Ce0 */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 95%;
-    --secondary-foreground: 240 5% 15%;
+    --secondary: 19 100% 62%; /* #ff7f3b */
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 94%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 0 0% 95%;
-    --accent-foreground: 240 5% 15%;
+    --accent: 217 93% 96%;
+    --accent-foreground: 217 93% 36%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 0 0% 80%;
+    --ring: 217 93% 76%;
 
     --radius: 0.5rem;
 
@@ -57,16 +57,16 @@
     --popover: 0 0% 10%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 0 0% 95%;
-    --primary-foreground: 0 0% 10%;
+    --primary: 217 93% 46%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 95%;
+    --secondary: 19 100% 62%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 20%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 0 0% 15%;
+    --accent: 217 93% 26%;
     --accent-foreground: 0 0% 95%;
 
     --destructive: 0 62% 30%;
@@ -74,7 +74,7 @@
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 0 0% 25%;
+    --ring: 217 93% 36%;
   }
 }
 
@@ -113,16 +113,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-secondary rounded-full;
+  @apply bg-accent rounded-full;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground/50 rounded-full;
+  @apply bg-primary/50 rounded-full;
   transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-muted-foreground/70;
+  @apply bg-primary/70;
 }
 
 /* Focus styles */

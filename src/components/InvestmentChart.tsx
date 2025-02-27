@@ -26,7 +26,8 @@ interface InvestmentChartProps {
   results: InvestmentResults;
 }
 
-const COLORS = ["#a8a29e", "#292524", "#d6d3d1", "#57534e", "#78716c"];
+// Les couleurs de Morning Croissant
+const COLORS = ["#095Ce0", "#ff7f3b", "#ccdcfc", "#ffcbac", "#6a93d4"];
 
 // Composant de tooltip personnalisé pour les graphiques
 const CustomTooltip = ({ active, payload, label, prefix = "", suffix = "" }: any) => {
