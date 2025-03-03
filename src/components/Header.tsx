@@ -18,7 +18,11 @@ const Header = ({ className }: HeaderProps) => {
           <div className="flex items-center">
             <a href="https://www.morningcroissant.fr" target="_blank" rel="noopener noreferrer">
               {isMobile ? (
-                <MobileLogoIcon />
+                <img 
+                  src="/lovable-uploads/dbe9b07e-8870-49e1-8a2b-6234f260b82b.png" 
+                  alt="Morning Croissant" 
+                  className="h-8" 
+                />
               ) : (
                 <MorningCroissantLogo />
               )}
@@ -64,16 +68,6 @@ const MorningCroissantLogo = () => {
     <div className="text-3xl font-bold flex items-center">
       <span className="text-primary-morningblue">morning</span>
       <span className="text-secondary-morningorange">croissant</span>
-    </div>
-  );
-};
-
-// Logo version mobile simplifié
-const MobileLogoIcon = () => {
-  return (
-    <div className="flex items-center">
-      <div className="w-8 h-8 rounded-full bg-primary-morningblue flex items-center justify-center text-white font-bold text-lg">M</div>
-      <div className="w-8 h-8 rounded-full bg-secondary-morningorange flex items-center justify-center text-white font-bold text-lg -ml-3">C</div>
     </div>
   );
 };
