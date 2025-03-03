@@ -19,7 +19,7 @@ const Header = ({ className }: HeaderProps) => {
             <a href="https://www.morningcroissant.fr" target="_blank" rel="noopener noreferrer">
               {isMobile ? (
                 <img 
-                  src="/lovable-uploads/dbe9b07e-8870-49e1-8a2b-6234f260b82b.png" 
+                  src="/lovable-uploads/4476df85-cbb7-414f-b930-a50642fda98a.png" 
                   alt="Morning Croissant" 
                   className="h-8" 
                 />
