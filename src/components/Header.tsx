@@ -1,12 +1,15 @@
 
 import { cn } from "@/lib/utils";
 import SlideTransition from "./SlideTransition";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type HeaderProps = {
   className?: string;
 };
 
 const Header = ({ className }: HeaderProps) => {
+  const isMobile = useIsMobile();
+
   return (
     <header className={cn("", className)}>
       {/* Logo and nav bar */}
@@ -14,16 +17,23 @@ const Header = ({ className }: HeaderProps) => {
         <div className="container mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center">
             <a href="https://www.morningcroissant.fr" target="_blank" rel="noopener noreferrer">
-              <MorningCroissantLogo />
+              {isMobile ? (
+                <MobileLogoIcon />
+              ) : (
+                <MorningCroissantLogo />
+              )}
             </a>
           </div>
           <a 
             href="https://www.morningcroissant.fr/publiez-votre-logement" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-full px-6 py-2.5 text-base font-semibold text-primary bg-white border-[3px] border-primary hover:bg-primary/5 transition-colors"
+            className={cn(
+              "inline-flex items-center justify-center rounded-full font-semibold text-primary bg-white border-[3px] border-primary hover:bg-primary/5 transition-colors",
+              isMobile ? "px-3 py-1.5 text-sm" : "px-6 py-2.5 text-base"
+            )}
           >
-            Vous êtes propriétaire ?
+            {isMobile ? "Publier" : "Vous êtes propriétaire ?"}
           </a>
         </div>
       </div>
@@ -54,6 +64,16 @@ const MorningCroissantLogo = () => {
     <div className="text-3xl font-bold flex items-center">
       <span className="text-primary-morningblue">morning</span>
       <span className="text-secondary-morningorange">croissant</span>
+    </div>
+  );
+};
+
+// Logo version mobile simplifié
+const MobileLogoIcon = () => {
+  return (
+    <div className="flex items-center">
+      <div className="w-8 h-8 rounded-full bg-primary-morningblue flex items-center justify-center text-white font-bold text-lg">M</div>
+      <div className="w-8 h-8 rounded-full bg-secondary-morningorange flex items-center justify-center text-white font-bold text-lg -ml-3">C</div>
     </div>
   );
 };
